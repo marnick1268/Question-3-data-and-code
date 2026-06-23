@@ -44,6 +44,6 @@ w_fluct_sq_bar=np.mean((w_fluct/u_s)**2)
 
 Reynolds_stress=np.mean(u_fluct*v_fluct)/u_s**2
 
-print(u_mean_plus,v_mean_plus,w_mean_plus)
-print(u_fluct_sq_bar,v_fluct_sq_bar,w_fluct_sq_bar)
-print(Reynolds_stress)
+print(f'u"_+_bar={u_mean_plus},v_+_bar={v_mean_plus},w_+_bar={w_mean_plus}')
+print(f'u^2_bar={u_fluct_sq_bar},v^2_bar={v_fluct_sq_bar},w^2_bar={w_fluct_sq_bar}')
+print(f'u"v"_plus_bar={Reynolds_stress}')

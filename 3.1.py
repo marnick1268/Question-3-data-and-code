@@ -22,12 +22,13 @@ z=np.arange(0,(M)*dz_plus,dz_plus)
 X, Z = np.meshgrid(z, x)
 u_mean=np.mean(u_lst)
 
-u_fluct=u_lst-u_mean
-
+u_fluct_plus=(u_lst-u_mean)/u_s
+u_fluct=u_fluct_plus*u_s
 w_mean=np.mean(w_lst)
 
-w_fluct=w_lst-w_mean
-v_mag_fluct_star=np.sqrt(u_fluct**2+w_fluct**2)/u_s
+w_fluct_plus=(w_lst-w_mean)/u_s
+w_fluct=w_fluct_plus*u_s
+v_mag_fluct_star=np.sqrt(u_fluct_plus**2+w_fluct_plus**2)
 
 
 
@@ -38,10 +39,10 @@ col_mask = z < 1000
 skip=8
 fig,ax=plt.subplots(2,2)
 plot(ax[0][0],u_lst[row_mask][:, col_mask])
-plot(ax[0][1],u_fluct[row_mask][:, col_mask])
+plot(ax[0][1],u_fluct_plus[row_mask][:, col_mask])
 
 plot(ax[1][0],w_lst[row_mask][:, col_mask])
-plot(ax[1][1],w_fluct[row_mask][:, col_mask])
+plot(ax[1][1],w_fluct_plus[row_mask][:, col_mask])
 
 
 fig,ax=plt.subplots(1,1)
@@ -50,8 +51,8 @@ plot(ax,v_mag_fluct_star[row_mask][:, col_mask])
 ax.quiver(
     Z[row_mask][:, col_mask][::skip,::skip],          # x-locations of arrows
     X[row_mask][:, col_mask][::skip,::skip],          # y-locations of arrows
-    u_fluct[row_mask][:, col_mask][::skip,::skip],      # horizontal component
-    w_fluct[row_mask][:, col_mask][::skip,::skip],      # vertical component
+    u_fluct_plus[row_mask][:, col_mask][::skip,::skip],      # horizontal component
+    w_fluct_plus[row_mask][:, col_mask][::skip,::skip],      # vertical component
     color='white'
 )
 
@@ -82,4 +83,6 @@ omega_y_plus = omega_y / (u_s**2)
 print(np.mean(omega_y_plus))
 fig,ax=plt.subplots(1,1)
 plot(ax,omega_y_plus[row_mask][:, col_mask])
+print(np.mean(omega_y_plus))
+print(np.log(188)/0.41+5)
 plt.show()
